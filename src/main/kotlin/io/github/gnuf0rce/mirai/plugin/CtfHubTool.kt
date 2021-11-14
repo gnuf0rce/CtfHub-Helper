@@ -7,7 +7,6 @@ import io.ktor.client.features.*
 import net.mamoe.mirai.message.data.*
 import net.mamoe.mirai.utils.*
 import java.io.*
-import java.time.OffsetDateTime
 
 
 internal const val LOGGER_PROPERTY = "io.github.gnuf0rce.mirai.plugin.logger"
@@ -20,13 +19,14 @@ internal val logger by lazy {
 }
 
 internal val ImageFolder by lazy {
-    val dir = System.getProperty(IMAGE_FOLDER_PROPERTY)
-    (if (dir.isNullOrBlank()) CtfHubHelperPlugin.dataFolder else File(dir)).resolve("image")
+    val folder = System.getProperty(IMAGE_FOLDER_PROPERTY)
+    (if (folder.isNullOrBlank()) CtfHubHelperPlugin.dataFolder else File(folder)).resolve("image")
 }
 
 internal val ctfhub by lazy {
     object : CtfHubClient(token = CtfHubConfig.token) {
         init {
+            logger.info { "token: ${CtfHubConfig.token}" }
             timeout = CtfHubConfig.timeout * 1000
         }
 
