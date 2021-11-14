@@ -19,9 +19,9 @@ internal class EventKtTest : CtfHubClientTest() {
     @Test
     fun info(): Unit = runBlocking {
         var total = -1
-        for (offset in 0 until 999 step DEFAULT_LIMIT) {
+        for (offset in 0 until 999 step PAGE_LIMIT) {
             if (offset >= total) break
-            val data = client.getAll(offset = offset, limit = DEFAULT_LIMIT)
+            val data = client.getAll(offset = offset, limit = PAGE_LIMIT)
             println(data.offset)
             total = data.total
 //            for (event in client.getAll().items) {

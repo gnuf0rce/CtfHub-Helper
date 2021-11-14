@@ -31,12 +31,14 @@ data class EventDetail(
     val state: Int,// XXX: 0 -> false, 1 -> true
 ) : Entry, Event {
 
+    @Transient
+    override var api: String = ""
+
     @Deprecated("offset", ReplaceWith("0"))
     @Transient
-    override val offset: Int = 0
-
+    override var offset: Int = 0
 
     @Deprecated("limit", ReplaceWith("0"))
     @Transient
-    override val limit: Int = 0
+    override var limit: Int = 0
 }

@@ -11,10 +11,11 @@ data class EventData(
 ) : Entry {
 
     @Transient
+    override var api: String = ""
+
+    @Transient
     override var offset: Int = 0
-        internal set
 
     @Transient
     override var limit: Int = 0
-        internal set
 }
