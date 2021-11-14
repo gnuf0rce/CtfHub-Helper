@@ -4,6 +4,7 @@ import io.github.gnuf0rce.ctfhub.api.*
 import io.github.gnuf0rce.mirai.plugin.*
 import net.mamoe.mirai.console.command.*
 import net.mamoe.mirai.message.data.*
+import net.mamoe.mirai.utils.*
 
 object CtfHubEventCommand : CompositeCommand(
     owner = CtfHubHelperPlugin,
@@ -12,10 +13,11 @@ object CtfHubEventCommand : CompositeCommand(
 ) {
 
     @SubCommand("running")
-    suspend fun CommandSenderOnMessage<*>.running() {
+    suspend fun CommandSenderOnMessage<*>.running(page: Int = 1) {
+        logger.info { "running" }
         sendMessage(
             try {
-                ctfhub.getRunning().toMessage()
+                ctfhub.getRunning(offset = (page - 1) * PAGE_LIMIT).toMessage()
             } catch (cause: Throwable) {
                 "出现错误: $cause".toPlainText()
             }
@@ -23,10 +25,23 @@ object CtfHubEventCommand : CompositeCommand(
     }
 
     @SubCommand("upcoming")
-    suspend fun CommandSenderOnMessage<*>.upcoming() {
+    suspend fun CommandSenderOnMessage<*>.upcoming(page: Int = 1) {
+        logger.info { "upcoming" }
         sendMessage(
             try {
-                ctfhub.getUpcoming().toMessage()
+                ctfhub.getUpcoming(offset = (page - 1) * PAGE_LIMIT).toMessage()
+            } catch (cause: Throwable) {
+                "出现错误: $cause".toPlainText()
+            }
+        )
+    }
+
+    @SubCommand("info")
+    suspend fun CommandSenderOnMessage<*>.info(id: Long) {
+        logger.info { "info" }
+        sendMessage(
+            try {
+                ctfhub.getInfo(id = id).toMessage()
             } catch (cause: Throwable) {
                 "出现错误: $cause".toPlainText()
             }

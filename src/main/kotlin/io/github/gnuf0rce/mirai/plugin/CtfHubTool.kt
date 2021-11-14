@@ -48,20 +48,17 @@ internal val ctfhub by lazy {
 fun Entry.toMessage(): Message {
     return when (this) {
         is EventData -> buildMessageChain {
-            // TODO: ...
             appendLine("共${total}个赛事, 第${offset / limit + 1}页")
             for (event in items) {
-                appendLine("${event.title} with ${event.start}")
+                appendLine("${event.id} ${event.title}")
+                appendLine("${event.start.toLocalDate()}~${event.end.toLocalDate()}")
             }
         }
         is EventDetail -> buildMessageChain {
-            // TODO: ...
-            appendLine(title)
-            appendLine(form)
-            appendLine(category)
-            appendLine("start: $start")
-            appendLine("end: $end")
-            appendLine(official)
+            appendLine("$id $title")
+            appendLine("OFFICIAL: $official")
+            appendLine("DATE: ${start.toLocalDate()}~${end.toLocalDate()}")
+            appendLine("CATEGORY: $category $form")
             appendLine(details)
         }
     }
