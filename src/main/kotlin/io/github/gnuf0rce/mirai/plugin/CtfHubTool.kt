@@ -8,7 +8,6 @@ import net.mamoe.mirai.message.data.*
 import net.mamoe.mirai.utils.*
 import java.io.*
 
-
 internal const val LOGGER_PROPERTY = "io.github.gnuf0rce.mirai.plugin.logger"
 
 internal const val IMAGE_FOLDER_PROPERTY = "io.github.gnuf0rce.mirai.plugin.image"

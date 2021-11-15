@@ -47,4 +47,16 @@ object CtfHubEventCommand : CompositeCommand(
             }
         )
     }
+
+    @SubCommand("search")
+    suspend fun CommandSenderOnMessage<*>.search(title: String) {
+        logger.info { "search" }
+        sendMessage(
+            try {
+                ctfhub.getAll(like = mapOf("title" to title)).toMessage()
+            } catch (cause: Throwable) {
+                "出现错误: $cause".toPlainText()
+            }
+        )
+    }
 }
